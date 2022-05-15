@@ -1,14 +1,16 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend para la app de BuscaTuTutor",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+      "Nothing special"
+  ],
+  "author": "Bruno Porras",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.14.0",
