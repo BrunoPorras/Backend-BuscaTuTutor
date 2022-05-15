@@ -1,0 +1,77 @@
+//  Configuración del entorno de Prisma
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+}
+
+// Modelos de tablas para Planet Scale hecho con Prisma (ORM)
+model Estudiante {
+    id          Int         @id @default(autoincrement())
+    correo      String      @db.VarChar(64) @unique
+    password    String      @db.VarChar(255)
+    nombre      String      @db.VarChar(64)
+    num_telf    String      @db.VarChar(9)
+    es_tutor    Boolean     @default(false)
+    clases      Clase[]
+    favoritos   Favoritos[]
+    tutor       Tutor[]
+}
+
+model Clase {
+    id              Int         @id @default(autoincrement())
+    id_estudiante   Int
+    estudiante      Estudiante  @relation(fields: [id_estudiante], references: [id], onDelete: Cascade)
+    id_tutor        Int
+    tutor           Tutor       @relation(fields: [id_tutor], references: [id], onDelete: Cascade)
+}
+
+model Tutor {
+    id              Int         @id @default(autoincrement())
+    id_estud        Int         @unique
+    estudiante      Estudiante  @relation(fields: [id_estud], references: [id], onDelete: Cascade)
+    descripcion     String      @db.VarChar(255)
+    foto            String      @db.VarChar(255)
+    especialidades  EspecialidadesTutor[]
+    habilidades     HabilidadesTutor[]
+    clases          Clase[]
+    facturas        FacturaSuscripcion[]
+    favoritos       Favoritos[]
+}
+
+model EspecialidadesTutor {
+    id          Int         @id @default(autoincrement())
+    desc_esp    String      @db.VarChar(255)
+    tutorId     Int
+    tutor       Tutor       @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+}
+
+model HabilidadesTutor {
+    id          Int         @id @default(autoincrement())
+    desc_esp    String      @db.VarChar(255)
+    tutorId     Int
+    tutor       Tutor       @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+}
+
+model FacturaSuscripcion {
+    id          Int         @id @default(autoincrement())
+    id_tutor    Int
+    tutor       Tutor       @relation(fields: [id_tutor], references: [id], onDelete: Cascade)
+    fecha_cobro DateTime
+    monto_cobro Float
+    nombre_pas  String      @db.VarChar(64)
+}
+
+model Favoritos {
+    id          Int         @id @default(autoincrement())
+    id_estud    Int
+    estudiante  Estudiante  @relation(fields: [id_estud], references: [id], onDelete: Cascade)
+    id_tutor    Int
+    tutor       Tutor       @relation(fields: [id_tutor], references: [id])
+    fecha_add   DateTime    @default(now())
+}
