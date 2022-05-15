@@ -1,3 +1,4 @@
 const app = require('./app')
 
-app()
+//  Escuchar al puerto y confirmar
+app.listen(process.env.PORT || 3000)

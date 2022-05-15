@@ -20,9 +20,4 @@ app.use('/api', user)
 app.use('/api', tutor)
 app.use('/api', estudiante)
 
-//  Escuchar al puerto y confirmar
-app.listen(port, () => {
-    console.log(`http://localhost:${port}`)
-})
-
 module.exports = app
