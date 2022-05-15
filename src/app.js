@@ -15,6 +15,11 @@ const port = process.env.PORT || 3000
 app.use(cors())
 app.use(express.json())
 
+//  Rutas de la api
+app.use('/api', user)
+app.use('/api', tutor)
+app.use('/api', estudiante)
+
 //  Escuchar al puerto y confirmar
 app.listen(port, () => {
     console.log(`http://localhost:${port}`)
