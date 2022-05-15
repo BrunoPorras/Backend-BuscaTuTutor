@@ -22,7 +22,7 @@ app.use('/api', estudiante)
 
 //  Escuchar al puerto y confirmar
 app.listen(port, () => {
-    console.log(`http://localhost:${port}`)
+    console.log(` Escuchando el puerto: ${port}`)
 })
 
 module.exports = app
