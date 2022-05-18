@@ -8,12 +8,13 @@
     "dev": "nodemon index.js"
   },
   "keywords": [
-      "Nothing special"
+    "Nothing special"
   ],
   "author": "Bruno Porras",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.14.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
