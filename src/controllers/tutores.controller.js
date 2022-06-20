@@ -66,7 +66,7 @@ tutoresCtrl.getOneTutor = async (req, res) => {
                 foto: true,
                 estudiante: {
                     select: {
-                        id: true,
+                        id: false,
                         nombre: true,
                         num_telf: true,
                         correo: true
