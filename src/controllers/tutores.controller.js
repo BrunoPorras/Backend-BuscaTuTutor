@@ -53,12 +53,12 @@ tutoresCtrl.getAllTutores = async (req, res) => {
 tutoresCtrl.getOneTutor = async (req, res) => {
     try {
         //  Id del tutor
-        const idTutor = req.query.idTutor
+        const id = req.query.id
 
         //  Query para obtener al tutor
         const tutor = await prisma.tutor.findUnique({
             where: {
-                id: Number(idTutor)
+                id_estud: Number(id)
             },
             select: {
                 id: true,
