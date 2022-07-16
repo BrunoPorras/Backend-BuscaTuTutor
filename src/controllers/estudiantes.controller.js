@@ -113,9 +113,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
         const token = req.header('Authorization')
     
         //  Data del tutor a añadir
-        const {
-            idTutor
-        } = req.body
+        const { id } = req.body
     
         //  Validar token
         jwt.verify(token, process.env.JWT_KEY, async (error, user) => {
@@ -128,7 +126,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
                     //  Query para validar si el id enviado es de un tutor
                     const es_tutor = await prisma.tutor.count({
                         where: {
-                            id: idTutor
+                            id_estud: id
                         }
                     })
 
@@ -138,7 +136,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
                         const no_fav = await prisma.favoritos.count({
                             where: {
                                 id_estud: Number(idUser),
-                                id_tutor: Number(idTutor)
+                                id_tutor: Number(id)
                             }
                         })
     
@@ -148,7 +146,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
                             await prisma.favoritos.create({
                                 data: {
                                     id_estud: Number(idUser),
-                                    id_tutor: Number(idTutor)
+                                    id_tutor: Number(id)
                                 }
                             })
                             res.json({ message: "Success", detail: "Tutor añadido a favoritos" })
@@ -239,19 +237,19 @@ estudianteCtrl.deleteFavTutor = (req, res) => {
         jwt.verify(token, process.env.JWT_KEY, async (error, user) => {
             if(!error){
                 //  Validar que no sea un tutor
-                if(user.es_tutor == false){
+                //if(user.es_tutor == false){
     
                     //  Id del usuario
                     const idUser = user.id
                     
                     //  Id del tutor a eliminar
-                    const { idTutor } = req.body
+                    const { id } = req.body
     
                     //  Query para eliminar tutor
                     const query = await prisma.favoritos.deleteMany({
                         where: {
                             id_estud: Number(idUser),
-                            id_tutor: Number(idTutor)
+                            id_tutor: Number(id)
                         }
                     })
                     if(query.count == 1){
@@ -259,9 +257,9 @@ estudianteCtrl.deleteFavTutor = (req, res) => {
                     } else {
                         res.json({ message: "Fail", detail: "Tutor no encontrado en favoritos" })
                     }
-                } else {
-                    res.json({ message: "Fail", detail: "Solo los alumnos acceden a esta función" })
-                }
+                //} else {
+                //    res.json({ message: "Fail", detail: "Solo los alumnos acceden a esta función" })
+                //}
             } else {
                 res.json({ message: "Fail", detail: "Token incorrecto o expirado" })
             }
