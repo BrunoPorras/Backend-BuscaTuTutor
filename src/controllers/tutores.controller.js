@@ -94,14 +94,18 @@ tutoresCtrl.getOneTutorFromStudent = async (req, res) => {
                 })
 
                 //  Para saber si es favorito
-                const fav = await prisma.favoritos.findMany({
+                const fav = await prisma.favoritos.count({
                     where: {
-                        id_estud: idUser,
-                        id_tutor: id
+                        id_estud: Number(idUser),
+                        id_tutor: Number(id)
                     }
                 })
-                res.json(fav)
-                //res.json(tutor)   
+                //res.json(fav)
+                if (fav != 0) {
+                    res.json({...tutor, favorito: 1})
+                } else {
+                    res.json({...tutor, favorito: 0})
+                }
             } else {
                 res.json({ message: "Fail", detail: "Token incorrecto o expirado" })
             }
