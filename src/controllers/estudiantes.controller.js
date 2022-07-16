@@ -121,7 +121,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
         jwt.verify(token, process.env.JWT_KEY, async (error, user) => {
             if(!error){
                 //  Validar que no sea un tutor
-                if(user.es_tutor == false){
+                //if(user.es_tutor == false){
                     //  Id del usuario
                     const idUser = user.id
 
@@ -158,9 +158,9 @@ estudianteCtrl.addFavTutor = async (req, res) => {
                     } else {
                         res.json({ message: "Fail", detail: "El tutor no existe" })
                     }        
-                } else {
-                    res.json({ message: "Fail", detail: "Solo los alumnos acceden a esta función" })
-                }
+                //} else {
+                    //res.json({ message: "Fail", detail: "Solo los alumnos acceden a esta función" })
+                //}
             } else {
                 res.json({ message: "Fail", detail: "Token incorrecto o expirado" })
             }
