@@ -94,7 +94,7 @@ tutoresCtrl.getOneTutorFromStudent = async (req, res) => {
                 })
 
                 //  Para saber si es favorito
-                const fav = await prisma.favoritos.count({
+                const fav = await prisma.favoritos.findMany({
                     where: {
                         id_estud: idUser,
                         id_tutor: id
