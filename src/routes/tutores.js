@@ -6,9 +6,6 @@ const tutoresCtrl = require('../controllers/tutores.controller')
 router.get('/getTutores', tutoresCtrl.getAllTutores)
 
 //  Obtener un tutor
-router.get('/getTutor', tutoresCtrl.getOneTutor)
-
-//
 router.get('/getTutor', tutoresCtrl.getOneTutorFromStudent)
 
 //  Desactivar cuenta de tutor
