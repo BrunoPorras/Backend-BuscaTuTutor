@@ -8,6 +8,9 @@ router.get('/getTutores', tutoresCtrl.getAllTutores)
 //  Obtener un tutor
 router.get('/getTutor', tutoresCtrl.getOneTutor)
 
+//
+router.get('/getTutorv2', tutoresCtrl.getOneTutorFromStudent)
+
 //  Desactivar cuenta de tutor
 router.put('/unableTutor', tutoresCtrl.leaveTutor)
 
