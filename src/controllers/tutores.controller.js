@@ -49,6 +49,68 @@ tutoresCtrl.getAllTutores = async (req, res) => {
     }
 }
 
+//  Obtener un tutor para un estudiante logeado
+tutoresCtrl.getOneTutorFromStudent = async (req, res) => {
+    try {
+        //  Token recibido
+        const token = req.header('Authorization')
+        
+        //  Validar token
+        jwt.verify(token, process.env.JWT_KEY, async (error, user) => {
+            if(!error){
+                //  Id del usuario
+                const idUser = user.id
+                //  Id del tutor
+                const id = req.query.id
+
+                //  Query para obtener al tutor
+                const tutor = await prisma.tutor.findUnique({
+                    where: {
+                        id_estud: Number(id)
+                    },
+                    select: {
+                        id: true,
+                        descripcion: true,
+                        foto: true,
+                        estudiante: {
+                            select: {
+                                id: false,
+                                nombre: true,
+                                num_telf: true,
+                                correo: true
+                            }
+                        },
+                        habilidades: {
+                            select: {
+                                desc_esp: true
+                            }
+                        },
+                        especialidades: {
+                            select: {
+                                desc_esp: true
+                            }
+                        }
+                    }
+                })
+
+                //  Para saber si es favorito
+                const fav = await prisma.favoritos.count({
+                    where: {
+                        id_estud: idUser,
+                        id_tutor: id
+                    }
+                })
+                res.json(fav)
+                //res.json(tutor)   
+            } else {
+                res.json({ message: "Fail", detail: "Token incorrecto o expirado" })
+            }
+        })
+    } catch (e) {
+        res.json(handleErrorPrisma(e))
+    }
+}
+
 //  Obtener un tutor únicamente - CHECK
 tutoresCtrl.getOneTutor = async (req, res) => {
     try {
