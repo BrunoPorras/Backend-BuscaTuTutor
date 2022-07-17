@@ -205,7 +205,6 @@ estudianteCtrl.getFavTutors = (req, res) => {
                                     },
                                     estudiante: {
                                         select: {
-                                            id: true,
                                             nombre: true,
                                             num_telf: true,
                                             correo: true
