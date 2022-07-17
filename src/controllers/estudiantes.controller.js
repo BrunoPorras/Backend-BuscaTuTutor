@@ -126,7 +126,7 @@ estudianteCtrl.addFavTutor = async (req, res) => {
                     //  Query para validar si el id enviado es de un tutor
                     const es_tutor = await prisma.tutor.count({
                         where: {
-                            id_estud: id
+                            id: id
                         }
                     })
 
@@ -205,6 +205,7 @@ estudianteCtrl.getFavTutors = (req, res) => {
                                     },
                                     estudiante: {
                                         select: {
+                                            id: true,
                                             nombre: true,
                                             num_telf: true,
                                             correo: true
