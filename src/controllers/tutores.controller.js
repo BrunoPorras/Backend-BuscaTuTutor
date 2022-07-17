@@ -97,7 +97,7 @@ tutoresCtrl.getOneTutorFromStudent = async (req, res) => {
                 const fav = await prisma.favoritos.count({
                     where: {
                         id_estud: Number(idUser),
-                        id_tutor: Number(id)
+                        id_tutor: Number(tutor.id)
                     }
                 })
                 //res.json(fav)
